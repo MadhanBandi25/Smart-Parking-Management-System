@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -266,7 +267,11 @@ public class BookingServiceImpl implements BookingService {
         }
 
         BigDecimal extraAmount =
-                calculateExtraAmount(hourlyRate, extraMinutes);
+                calculateExtraAmount(
+                        rate,
+                        booking.getExpectedExitTime(),
+                        actualExitTime
+                );
 
         booking.setActualExitTime(actualExitTime);
         booking.setExtraMinutes(extraMinutes);
@@ -353,9 +358,7 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
-    private BigDecimal getHourlyRate(
-            ParkingRate rate, LocalDateTime dateTime) {
-
+    private BigDecimal getHourlyRate(ParkingRate rate, LocalDateTime dateTime) {
         DayOfWeek day = dateTime.getDayOfWeek();
 
         if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
@@ -364,7 +367,49 @@ public class BookingServiceImpl implements BookingService {
         return rate.getWeekdayRate();
     }
 
-    private BigDecimal calculateExtraAmount(BigDecimal hourlyRate, long extraMinutes) {
+    private BigDecimal calculateExtraAmount(ParkingRate rate,
+            LocalDateTime expectedExit, LocalDateTime actualExit) {
+
+        if (!actualExit.isAfter(expectedExit)) {
+            return BigDecimal.ZERO;
+        }
+        long totalExtraMinutes = ChronoUnit.MINUTES.between(expectedExit, actualExit);
+
+        // 5-minute grace period
+        if (totalExtraMinutes <= 5) {
+            return BigDecimal.ZERO;
+        }
+
+        BigDecimal totalExtraAmount = BigDecimal.ZERO;
+        LocalDateTime current = expectedExit;
+
+        while (current.isBefore(actualExit)) {
+            LocalDateTime nextBoundary =
+                    current.toLocalDate()
+                            .plusDays(1)
+                            .atStartOfDay();
+
+            if (nextBoundary.isAfter(actualExit)) {
+                nextBoundary = actualExit;
+            }
+
+            long minutes = ChronoUnit.MINUTES.between(current, nextBoundary);
+            BigDecimal hourlyRate = getHourlyRate(rate, current);
+
+            BigDecimal perMinuteRate =
+                    hourlyRate.divide(
+                            BigDecimal.valueOf(60),
+                            2,
+                            RoundingMode.HALF_UP);
+
+            BigDecimal amount = perMinuteRate.multiply(BigDecimal.valueOf(minutes));
+            totalExtraAmount = totalExtraAmount.add(amount);
+            current = nextBoundary;
+        }
+        return totalExtraAmount.setScale(2, RoundingMode.HALF_UP);
+    }
+
+  /*  private BigDecimal calculateExtraAmount(BigDecimal hourlyRate, long extraMinutes) {
 
         if (extraMinutes <= 5) {
             return BigDecimal.ZERO;
@@ -379,5 +424,7 @@ public class BookingServiceImpl implements BookingService {
                 .multiply(BigDecimal.valueOf(extraMinutes))
                 .setScale(2, RoundingMode.HALF_UP);
     }
+
+   */
 
 }
