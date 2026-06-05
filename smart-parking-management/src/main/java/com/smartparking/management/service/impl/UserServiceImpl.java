@@ -1,6 +1,7 @@
 package com.smartparking.management.service.impl;
 
 import com.smartparking.management.dto.request.RegisterRequest;
+import com.smartparking.management.dto.request.UpdateProfileRequest;
 import com.smartparking.management.dto.response.UserResponse;
 import com.smartparking.management.entity.User;
 import com.smartparking.management.exceptions.BadRequestException;
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse updateUser(RegisterRequest request) {
+    public UserResponse updateUser(UpdateProfileRequest request) {
         User user = getLoggedInUser();
         validatePhoneNumber(user, request.getPhoneNumber());
         UserMapper.updateEntity(user, request);
@@ -108,6 +109,11 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findByEmailAndDeletedFalse(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Logged-in user not found"));
+    }
+
+    @Override
+    public UserResponse getProfile() {
+        return UserMapper.mapToResponse(getLoggedInUser());
     }
 
 }

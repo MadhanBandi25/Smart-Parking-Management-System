@@ -38,7 +38,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("http://127.0.0.1:5500")
+                List.of("http://127.0.0.1:5500",
+                        "http://localhost:5500")
         );
 
         configuration.setAllowedMethods(
@@ -293,8 +294,8 @@ public class SecurityConfig {
 
 
                         .anyRequest().authenticated())
-                  .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-               .httpBasic(Customizer.withDefaults());
+                  .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+              // .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }

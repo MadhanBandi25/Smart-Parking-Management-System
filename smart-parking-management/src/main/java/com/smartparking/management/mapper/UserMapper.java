@@ -1,6 +1,7 @@
 package com.smartparking.management.mapper;
 
 import com.smartparking.management.dto.request.RegisterRequest;
+import com.smartparking.management.dto.request.UpdateProfileRequest;
 import com.smartparking.management.dto.response.UserResponse;
 import com.smartparking.management.entity.User;
 import com.smartparking.management.enums.Role;
@@ -31,7 +32,7 @@ public class UserMapper {
         return response;
     }
 
-    public static void updateEntity(User user, RegisterRequest request) {
+    public static void updateEntity(User user, UpdateProfileRequest request) {
         user.setName(formatName(request.getName()));
         user.setPhoneNumber(request.getPhoneNumber());
     }

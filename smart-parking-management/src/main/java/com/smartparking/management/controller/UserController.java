@@ -1,6 +1,7 @@
 package com.smartparking.management.controller;
 
 import com.smartparking.management.dto.request.RegisterRequest;
+import com.smartparking.management.dto.request.UpdateProfileRequest;
 import com.smartparking.management.dto.response.UserResponse;
 import com.smartparking.management.service.UserService;
 import jakarta.validation.Valid;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UpdateProfileRequest request) {
         UserResponse response = userService.updateUser(request);
         return ResponseEntity.ok(response);
     }
@@ -55,6 +56,11 @@ public class UserController {
     @PutMapping("/{id}/restore")
     public ResponseEntity<UserResponse> restoreUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.restoreUser(id));
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserResponse> getProfile() {
+        return ResponseEntity.ok(userService.getProfile());
     }
 
 }

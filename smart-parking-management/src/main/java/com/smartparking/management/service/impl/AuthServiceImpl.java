@@ -98,8 +98,12 @@ public class AuthServiceImpl implements AuthService {
 
         return new AuthResponse(token,
                 "Bearer",
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
                 user.getRole().name(),
-                "Login successful");
+                "Login successful"
+        );
     }
 
     @Override
