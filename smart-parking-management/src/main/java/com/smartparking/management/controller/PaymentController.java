@@ -2,6 +2,7 @@ package com.smartparking.management.controller;
 
 import com.smartparking.management.dto.request.PaymentRequest;
 import com.smartparking.management.dto.response.PaymentResponse;
+import com.smartparking.management.enums.PaymentMethod;
 import com.smartparking.management.enums.PaymentStatus;
 import com.smartparking.management.service.PaymentService;
 import jakarta.validation.Valid;
@@ -92,6 +93,12 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.getPaymentsByDateRange(fromDate, toDate));
     }
 
-
+    @PostMapping("/extra/{bookingId}")
+    public ResponseEntity<PaymentResponse> makeExtraPayment(
+            @PathVariable Long bookingId,
+            @RequestParam PaymentMethod paymentMethod) {
+        PaymentResponse response = paymentService.makeExtraPayment(bookingId, paymentMethod);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 
 }

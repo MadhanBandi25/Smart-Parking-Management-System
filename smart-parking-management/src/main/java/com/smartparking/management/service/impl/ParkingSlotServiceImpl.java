@@ -245,6 +245,10 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         if (user.getRole().equals(Role.ADMIN)) {
             return;
         }
+        if (user.getRole().equals(Role.USER) ||
+                user.getRole().equals(Role.SECURITY)) {
+            return;
+        }
         if (parkingArea.getOwner() == null ||
                 !parkingArea.getOwner().getId().equals(user.getId())) {
             throw new BadRequestException("You cannot access this parking area");

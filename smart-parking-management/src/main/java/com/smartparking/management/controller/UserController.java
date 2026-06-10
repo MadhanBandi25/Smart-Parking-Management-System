@@ -29,6 +29,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<UserResponse>> getAllUsersIncludingDeleted() {
+        return ResponseEntity.ok(userService.getAllUsersIncludingDeleted());
+    }
+
     @GetMapping("/search/email")
     public ResponseEntity<List<UserResponse>> searchByEmail(@RequestParam String email) {
         List<UserResponse>  response = userService.searchByEmail(email);

@@ -6,10 +6,7 @@ import com.smartparking.management.entity.Booking;
 import com.smartparking.management.entity.ParkingSlot;
 import com.smartparking.management.entity.Payment;
 import com.smartparking.management.entity.User;
-import com.smartparking.management.enums.BookingStatus;
-import com.smartparking.management.enums.NotificationType;
-import com.smartparking.management.enums.PaymentStatus;
-import com.smartparking.management.enums.SlotStatus;
+import com.smartparking.management.enums.*;
 import com.smartparking.management.exceptions.BadRequestException;
 import com.smartparking.management.exceptions.ResourceNotFoundException;
 import com.smartparking.management.mapper.PaymentMapper;
@@ -27,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -246,6 +244,56 @@ public class PaymentServiceImpl implements PaymentService {
                 .stream()
                 .map(PaymentMapper::mapToPaymentResponse)
                 .toList();
+    }
+    @Override
+    @Transactional
+    public PaymentResponse makeExtraPayment(Long bookingId, PaymentMethod paymentMethod) {
+
+        User user = getLoggedInUser();
+
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new ResourceNotFoundException("Booking not found"));
+
+        if (!booking.getUser().getId().equals(user.getId())) {
+            throw new BadRequestException("This booking does not belong to logged-in user");
+        }
+
+        if (!booking.getBookingStatus().equals(BookingStatus.COMPLETED)) {
+            throw new BadRequestException("Extra payment is only for completed bookings");
+        }
+
+        if (booking.getExtraAmount() == null ||
+                booking.getExtraAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BadRequestException("No extra amount due for this booking");
+        }
+
+        // Get existing payment and UPDATE it — don't create new one
+        // because booking_id is unique in payments table
+        Payment payment = paymentRepository.findByBookingId(booking.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Original payment not found"));
+
+        // Check extra not already paid
+        if (payment.getAmount().compareTo(booking.getTotalAmount()) >= 0) {
+            throw new BadRequestException("Extra payment already completed");
+        }
+
+        // Update payment to include extra amount
+        payment.setAmount(booking.getTotalAmount()); // base + extra
+        payment.setPaymentMethod(paymentMethod);
+        payment.setPaymentStatus(PaymentStatus.PAID);
+        payment.setPaymentTime(LocalDateTime.now());
+
+        Payment saved = paymentRepository.save(payment);
+
+        notificationService.createNotification(
+                booking.getUser(),
+                "Extra payment of ₹" + booking.getExtraAmount() +
+                        " paid successfully for booking " + booking.getBookingNumber() +
+                        ". Total paid: ₹" + booking.getTotalAmount(),
+                NotificationType.PAYMENT_SUCCESS
+        );
+
+        return PaymentMapper.mapToPaymentResponse(saved);
     }
     // Helper methods
 

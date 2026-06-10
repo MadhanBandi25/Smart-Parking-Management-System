@@ -4,6 +4,8 @@ import com.smartparking.management.dto.response.BookingResponse;
 import com.smartparking.management.entity.Booking;
 import com.smartparking.management.util.FloorUtil;
 
+import java.math.BigDecimal;
+
 public class BookingMapper {
 
     public static BookingResponse mapToBookingResponse(Booking booking) {
@@ -35,6 +37,16 @@ public class BookingMapper {
         response.setActualExitTime(booking.getActualExitTime());
 
         response.setBookingStatus(booking.getBookingStatus());
+
+        // extraPaid = true if payment amount equals totalAmount (extra was paid)
+        boolean hasExtra = booking.getExtraAmount() != null &&
+                booking.getExtraAmount().compareTo(BigDecimal.ZERO) > 0;
+        boolean extraPaid = false;
+        if (hasExtra && booking.getPayment() != null) {
+            extraPaid = booking.getPayment().getAmount()
+                    .compareTo(booking.getTotalAmount()) >= 0;
+        }
+        response.setExtraPaid(extraPaid);
 
         return response;
     }

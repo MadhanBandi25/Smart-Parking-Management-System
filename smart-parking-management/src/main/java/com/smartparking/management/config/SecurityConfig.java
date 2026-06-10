@@ -39,7 +39,8 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(
                 List.of("http://127.0.0.1:5500",
-                        "http://localhost:5500")
+                        "http://localhost:5500"
+                         )
         );
 
         configuration.setAllowedMethods(
@@ -95,6 +96,7 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/api/users",
                                 "/api/users/*",
+                                "/api/users/all",
                                 "/api/users/search/email",
                                 "/api/users/search/phone"
                         ).hasRole("ADMIN")
@@ -143,7 +145,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/parking-areas"
-                        ).hasAnyRole("ADMIN", "PARKING_OWNER")
+                        ).hasAnyRole("ADMIN", "PARKING_OWNER", "USER")
                         .requestMatchers(
                                 "/api/parking-areas/search/**"
                         ).hasAnyRole("USER", "ADMIN", "SECURITY","PARKING_OWNER")
@@ -171,6 +173,17 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/api/parking-slots"
                         ).hasAnyRole("ADMIN", "PARKING_OWNER")
+
+// ADD THIS NEW BLOCK ↓
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/parking-slots/available",
+                                "/api/parking-slots/available/**",
+                                "/api/parking-slots/area/**",
+                                "/api/parking-slots/search/**"
+                        ).hasAnyRole("ADMIN", "PARKING_OWNER", "USER", "SECURITY")
+// ADD THIS NEW BLOCK ↑
+
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/parking-slots/**"
@@ -205,11 +218,11 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/api/bookings/*/start"
-                        ).hasAnyRole("SECURITY","USER")
+                        ).hasRole("SECURITY")
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/api/bookings/*/complete"
-                        ).hasAnyRole("SECURITY", "USER")
+                        ).hasRole("SECURITY")
 
                         .requestMatchers(
                                 HttpMethod.GET,
@@ -225,11 +238,15 @@ public class SecurityConfig {
                         // payments
                         .requestMatchers(
                                 HttpMethod.POST,
-                                "/api/payments"
+                                "/api/payments/extra/**"
                         ).hasRole("USER")
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/api/payments/failed/**"
+                        ).hasRole("USER")
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/payments"
                         ).hasRole("USER")
                         .requestMatchers(
                                 HttpMethod.GET,
@@ -265,7 +282,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/qr/verify"
-                        ).hasAnyRole("SECURITY", "USER")
+                        ).hasRole("SECURITY")
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/api/qr/check-in/**",
@@ -294,8 +311,8 @@ public class SecurityConfig {
 
 
                         .anyRequest().authenticated())
-                  .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-              // .httpBasic(Customizer.withDefaults());
+                  .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+               .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }

@@ -116,4 +116,11 @@ public class UserServiceImpl implements UserService {
         return UserMapper.mapToResponse(getLoggedInUser());
     }
 
+    @Override
+    public List<UserResponse> getAllUsersIncludingDeleted() {
+        return userRepository.findAll()  // JpaRepository built-in — returns ALL
+                .stream()
+                .map(UserMapper::mapToResponse)
+                .toList();
+    }
 }

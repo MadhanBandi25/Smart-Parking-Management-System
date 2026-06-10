@@ -14,4 +14,5 @@ public class UserResponse {
     private String phoneNumber;
     private Role role;
     private LocalDateTime createdAt;
+    private Boolean deleted;
 }

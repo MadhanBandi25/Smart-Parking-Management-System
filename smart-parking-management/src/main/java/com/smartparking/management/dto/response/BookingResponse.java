@@ -35,5 +35,6 @@ public class BookingResponse {
     private LocalDateTime actualExitTime;
 
     private BookingStatus bookingStatus;
+    private Boolean extraPaid;
 
 }

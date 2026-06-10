@@ -29,6 +29,7 @@ public class UserMapper {
         response.setPhoneNumber(user.getPhoneNumber());
         response.setRole(user.getRole());
         response.setCreatedAt(user.getCreatedAt());
+        response.setDeleted(user.getDeleted());
         return response;
     }
 

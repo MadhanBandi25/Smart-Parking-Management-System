@@ -2,6 +2,7 @@ package com.smartparking.management.service;
 
 import com.smartparking.management.dto.request.PaymentRequest;
 import com.smartparking.management.dto.response.PaymentResponse;
+import com.smartparking.management.enums.PaymentMethod;
 import com.smartparking.management.enums.PaymentStatus;
 
 import java.time.LocalDate;
@@ -22,5 +23,7 @@ public interface PaymentService {
     List<PaymentResponse> getAllPayments();
     List<PaymentResponse> getPaymentsByStatus(PaymentStatus paymentStatus);
     List<PaymentResponse> getPaymentsByDateRange(LocalDate fromDate, LocalDate toDate);
+
+    PaymentResponse makeExtraPayment(Long bookingId, PaymentMethod paymentMethod);
 
 }
