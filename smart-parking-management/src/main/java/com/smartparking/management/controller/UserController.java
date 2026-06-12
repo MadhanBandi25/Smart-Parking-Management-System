@@ -1,6 +1,5 @@
 package com.smartparking.management.controller;
 
-import com.smartparking.management.dto.request.RegisterRequest;
 import com.smartparking.management.dto.request.UpdateProfileRequest;
 import com.smartparking.management.dto.response.UserResponse;
 import com.smartparking.management.service.UserService;
@@ -67,5 +66,4 @@ public class UserController {
     public ResponseEntity<UserResponse> getProfile() {
         return ResponseEntity.ok(userService.getProfile());
     }
-
 }

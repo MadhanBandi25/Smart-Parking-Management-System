@@ -59,8 +59,6 @@ public class ParkingArea {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-
-
     private Boolean deleted = false;
 
     @CreationTimestamp

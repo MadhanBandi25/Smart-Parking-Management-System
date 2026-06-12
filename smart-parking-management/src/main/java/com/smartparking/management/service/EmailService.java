@@ -17,7 +17,6 @@ public interface EmailService {
             String expectedExitTime
     );
 
-
     void sendBookingCancelledEmail(
             String toEmail,
             String bookingNumber,

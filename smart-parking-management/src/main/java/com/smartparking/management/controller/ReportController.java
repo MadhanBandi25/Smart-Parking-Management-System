@@ -1,6 +1,5 @@
 package com.smartparking.management.controller;
 
-
 import com.smartparking.management.dto.response.BookingReportResponse;
 import com.smartparking.management.dto.response.PaymentReportResponse;
 import com.smartparking.management.dto.response.RevenueReportResponse;
@@ -61,5 +60,4 @@ public class ReportController {
 
         return ResponseEntity.ok(reportService.getPaymentReport(fromDate, toDate));
     }
-
 }

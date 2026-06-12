@@ -26,10 +26,13 @@ public class ParkingAreaServiceImpl implements ParkingAreaService {
 
     @Autowired
     private ParkingAreaRepository parkingAreaRepository;
+
     @Autowired
     private ParkingSlotRepository parkingSlotRepository;
+
     @Autowired
     private ParkingRateRepository parkingRateRepository;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -48,7 +51,6 @@ public class ParkingAreaServiceImpl implements ParkingAreaService {
         }
         ParkingArea saved = parkingAreaRepository.save(parkingArea);
         return ParkingAreaMapper.mapToParkingAreaResponse(saved);
-
     }
 
     @Override
@@ -127,7 +129,6 @@ public class ParkingAreaServiceImpl implements ParkingAreaService {
         ParkingArea saved = parkingAreaRepository.save(parkingArea);
         return ParkingAreaMapper.mapToParkingAreaResponse(saved);
     }
-
 
     @Override
     public void deleteVehicleTypeFromArea(Long parkingAreaId, VehicleType vehicleType) {
@@ -215,13 +216,6 @@ public class ParkingAreaServiceImpl implements ParkingAreaService {
                 .toList();
     }
 
-
-
-
-
-
-
-
     private ParkingArea getActiveParkingArea(Long id) {
         return parkingAreaRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -275,5 +269,4 @@ public class ParkingAreaServiceImpl implements ParkingAreaService {
             throw new BadRequestException("At least one slot category must be greater than 0");
         }
     }
-
 }

@@ -1,6 +1,5 @@
 package com.smartparking.management.mapper;
 
-
 import com.smartparking.management.dto.request.ParkingRateRequest;
 import com.smartparking.management.dto.response.ParkingRateResponse;
 import com.smartparking.management.entity.ParkingArea;
@@ -8,8 +7,7 @@ import com.smartparking.management.entity.ParkingRate;
 
 public class ParkingRateMapper {
 
-    public static ParkingRate mapToParkingRateEntity(
-            ParkingRateRequest request, ParkingArea parkingArea) {
+    public static ParkingRate mapToParkingRateEntity(ParkingRateRequest request, ParkingArea parkingArea) {
 
         ParkingRate rate = new ParkingRate();
 

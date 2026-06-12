@@ -23,16 +23,12 @@ public interface ParkingSlotRepository extends JpaRepository<ParkingSlot,Long> {
 
     List<ParkingSlot> findByVehicleTypeAndDeletedFalse(VehicleType vehicleType);
     List<ParkingSlot> findByParkingAreaIdAndSlotStatusAndDeletedFalse(Long parkingAreaId, SlotStatus slotStatus);
-    List<ParkingSlot> findByParkingAreaIdAndVehicleTypeAndSlotStatusAndDeletedFalse(
-            Long parkingAreaId, VehicleType vehicleType, SlotStatus slotStatus);
+    List<ParkingSlot> findByParkingAreaIdAndVehicleTypeAndSlotStatusAndDeletedFalse(Long parkingAreaId, VehicleType vehicleType, SlotStatus slotStatus);
 
-    Optional<ParkingSlot> findByParkingAreaIdAndVehicleTypeAndSlotNumberIgnoreCaseAndDeletedFalse(
-            Long parkingAreaId, VehicleType vehicleType, String slotNumber);
-
+    Optional<ParkingSlot> findByParkingAreaIdAndVehicleTypeAndSlotNumberIgnoreCaseAndDeletedFalse(Long parkingAreaId, VehicleType vehicleType, String slotNumber);
 
     List<ParkingSlot> findByParkingAreaIdAndVehicleTypeAndDeletedFalse(Long parkingAreaId, VehicleType vehicleType);
     List<ParkingSlot> findByParkingAreaIdAndVehicleType(Long parkingAreaId, VehicleType vehicleType);
-
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("""
@@ -46,9 +42,6 @@ public interface ParkingSlotRepository extends JpaRepository<ParkingSlot,Long> {
     long countByDeletedFalse();
     long countBySlotStatusAndDeletedFalse(SlotStatus slotStatus);
 
-    List<ParkingSlot> findByParkingAreaOwnerIdAndDeletedFalse(Long ownerId);
     long countByParkingAreaOwnerIdAndDeletedFalse(Long ownerId);
     long countByParkingAreaOwnerIdAndSlotStatusAndDeletedFalse(Long ownerId, SlotStatus slotStatus);
-
-
 }

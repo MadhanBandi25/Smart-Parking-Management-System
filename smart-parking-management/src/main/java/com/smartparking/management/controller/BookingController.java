@@ -22,7 +22,6 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-
     @PostMapping
     public ResponseEntity<BookingResponse> createBooking(
             @Valid @RequestBody CreateBookingRequest request) {
@@ -99,7 +98,6 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getBookingsByDateRange(fromDate, toDate));
     }
 
-
     @PutMapping("/{bookingId}/start")
     public ResponseEntity<BookingResponse> startBooking(
             @PathVariable Long bookingId) {
@@ -117,6 +115,4 @@ public class BookingController {
             @PathVariable Long bookingId) {
         return ResponseEntity.ok(bookingService.cancelBooking(bookingId));
     }
-
-
 }

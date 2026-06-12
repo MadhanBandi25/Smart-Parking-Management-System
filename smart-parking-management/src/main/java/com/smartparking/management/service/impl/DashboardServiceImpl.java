@@ -20,14 +20,19 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private VehicleRepository vehicleRepository;
+
     @Autowired
     private ParkingAreaRepository parkingAreaRepository;
+
     @Autowired
     private ParkingSlotRepository parkingSlotRepository;
+
     @Autowired
     private BookingRepository bookingRepository;
+
     @Autowired
     private PaymentRepository paymentRepository;
 
@@ -52,7 +57,6 @@ public class DashboardServiceImpl implements DashboardService {
         response.setTodayRevenue(paymentRepository.getTodayRevenue());
 
         return response;
-
     }
 
     @Override

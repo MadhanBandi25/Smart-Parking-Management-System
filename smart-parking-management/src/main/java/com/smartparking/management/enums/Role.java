@@ -6,5 +6,4 @@ public enum Role {
     ADMIN,
     SECURITY,
     PARKING_OWNER
-
 }

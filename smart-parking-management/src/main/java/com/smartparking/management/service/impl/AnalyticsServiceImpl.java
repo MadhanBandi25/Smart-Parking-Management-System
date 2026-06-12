@@ -19,6 +19,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
     @Autowired
     private PaymentRepository paymentRepository;
 
@@ -32,15 +33,9 @@ public class AnalyticsServiceImpl implements AnalyticsService {
         response.setTodayRevenue(paymentRepository.getTodayRevenue());
 
         response.setTotalBookings(bookingRepository.count());
-        response.setCompletedBookings(
-                bookingRepository.countByBookingStatus(BookingStatus.COMPLETED)
-        );
-        response.setCancelledBookings(
-                bookingRepository.countByBookingStatus(BookingStatus.CANCELLED)
-        );
-        response.setActiveBookings(
-                bookingRepository.countByBookingStatus(BookingStatus.ACTIVE)
-        );
+        response.setCompletedBookings(bookingRepository.countByBookingStatus(BookingStatus.COMPLETED));
+        response.setCancelledBookings(bookingRepository.countByBookingStatus(BookingStatus.CANCELLED));
+        response.setActiveBookings(bookingRepository.countByBookingStatus(BookingStatus.ACTIVE));
 
         var bookings = bookingRepository.findAll();
 
@@ -50,17 +45,14 @@ public class AnalyticsServiceImpl implements AnalyticsService {
                         booking -> booking.getVehicle()
                                 .getVehicleType()
                                 .name(),
-                        Collectors.counting()
-                ));
+                        Collectors.counting()));
 
         response.setVehicleTypeBookings(vehicleTypeBookings);
 
-        Map<String, Long> bookingStatusCount = bookings
-                .stream()
-                .collect(Collectors.groupingBy(
-                        booking -> booking.getBookingStatus().name(),
-                        Collectors.counting()
-                ));
+        Map<String, Long> bookingStatusCount = bookings.stream()
+                                                        .collect(Collectors.groupingBy(
+                                                booking -> booking.getBookingStatus().name(),
+                                                                Collectors.counting()));
 
         response.setBookingStatusCount(bookingStatusCount);
 
@@ -75,9 +67,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
                         Collectors.reducing(
                                 BigDecimal.ZERO,
                                 Payment::getAmount,
-                                BigDecimal::add
-                        )
-                ));
+                                BigDecimal::add)));
         response.setAreaWiseRevenue(areaWiseRevenue);
         return response;
     }

@@ -49,5 +49,4 @@ public class UserMapper {
         }
         return sb.toString().trim();
     }
-
 }

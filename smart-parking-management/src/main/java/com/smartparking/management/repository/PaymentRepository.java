@@ -24,7 +24,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     List<Payment> findByBookingUserIdAndPaymentTimeBetween(Long userId, LocalDateTime start, LocalDateTime end);
     List<Payment> findByPaymentTimeBetween(LocalDateTime start, LocalDateTime end);
 
-
     @Query("""
     SELECT COALESCE(SUM(p.amount),0)
     FROM Payment p
@@ -48,7 +47,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     """)
     BigDecimal getTotalAmountPaidByUserId(Long userId);
 
-
     long countByPaymentStatusAndPaymentTimeBetween(PaymentStatus paymentStatus, LocalDateTime start, LocalDateTime end);
 
     @Query("""
@@ -66,5 +64,4 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     AND p.booking.parkingArea.owner.id = :ownerId
     """)
     BigDecimal getTotalRevenueByOwnerId(@Param("ownerId") Long ownerId);
-
 }

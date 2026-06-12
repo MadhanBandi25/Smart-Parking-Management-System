@@ -7,9 +7,7 @@ import java.math.BigDecimal;
 @Data
 public class AdminDashboardResponse {
 
-
     private Long totalUsers;
-
     private Long totalParkingAreas;
 
     private Long totalSlots;
@@ -24,18 +22,4 @@ public class AdminDashboardResponse {
 
     private BigDecimal totalRevenue;
     private BigDecimal todayRevenue;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

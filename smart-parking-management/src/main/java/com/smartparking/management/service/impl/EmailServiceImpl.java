@@ -23,13 +23,12 @@ public class EmailServiceImpl implements EmailService {
             message.setText(
                     "Dear User,\n\n"
 
-                            + "Your OTP for Smart Parking account verification is:\n\n"
+                            + "Your Smart Parking verification OTP is:\n\n"
 
                             + "OTP : " + otp + "\n\n"
 
-                            + "This OTP is valid for 5 minutes.\n\n"
-
-                            + "Please do not share this OTP with anyone.\n\n"
+                            + "This OTP is valid for 5 minutes.\n"
+                            + "Please do not share it with anyone.\n\n"
 
                             + "Regards,\n"
                             + "Smart Parking Team"
@@ -50,14 +49,13 @@ public class EmailServiceImpl implements EmailService {
             message.setText(
                     "Dear User,\n\n"
 
-                            + "Your OTP for password reset is:\n\n"
+                            + "Your password reset OTP is:\n\n"
 
                             + "OTP : " + otp + "\n\n"
 
                             + "This OTP is valid for 5 minutes.\n\n"
 
-                            + "If you did not request this password reset,"
-                            + " please ignore this email.\n\n"
+                            + "If you did not request a password reset, please ignore this email.\n\n"
 
                             + "Regards,\n"
                             + "Smart Parking Team"
@@ -77,12 +75,16 @@ public class EmailServiceImpl implements EmailService {
             message.setSubject("Welcome to Smart Parking");
             message.setText(
                     "Hello " + name + ",\n\n"
+
                             + "Welcome to Smart Parking.\n\n"
 
                             + "Your account has been created successfully.\n\n"
 
-                            + "You can now login, manage vehicles,"
-                            + " and book parking slots easily.\n\n"
+                            + "You can now:\n"
+                            + "• Register vehicles\n"
+                            + "• Search parking areas\n"
+                            + "• Book parking slots\n"
+                            + "• Manage your bookings\n\n"
 
                             + "Thank you for choosing Smart Parking.\n\n"
 
@@ -117,15 +119,18 @@ public class EmailServiceImpl implements EmailService {
 
                             + "Your parking booking has been confirmed successfully.\n\n"
 
-                            + "Booking Details:\n\n"
+                            + "BOOKING DETAILS\n"
+                            + "==================================================\n"
 
-                            + "Booking Number     : " + bookingNumber + "\n"
-                            + "Vehicle Number     : " + vehicleNumber + "\n"
-                            + "Parking Area       : " + areaName + "\n"
-                            + "Slot Number        : " + slotNumber + "\n"
-                            + "Floor              : " + floorName + "\n"
-                            + "Entry Time         : " + entryTime + "\n"
-                            + "Expected Exit Time : " + expectedExitTime + "\n\n"
+                            + String.format("%-20s : %s%n", "Booking Number", bookingNumber)
+                            + String.format("%-20s : %s%n", "Vehicle Number", vehicleNumber)
+                            + String.format("%-20s : %s%n", "Parking Area", areaName)
+                            + String.format("%-20s : %s%n", "Slot Number", slotNumber)
+                            + String.format("%-20s : %s%n", "Floor", floorName)
+                            + String.format("%-20s : %s%n", "Entry Time", entryTime)
+                            + String.format("%-20s : %s%n", "Expected Exit Time", expectedExitTime)
+
+                            + "\n==================================================\n\n"
 
                             + "Please use your QR code during entry and exit.\n\n"
 
@@ -162,15 +167,18 @@ public class EmailServiceImpl implements EmailService {
 
                             + "Your parking booking has been cancelled successfully.\n\n"
 
-                            + "Booking Details:\n\n"
+                            + "BOOKING DETAILS\n"
+                            + "==================================================\n"
 
-                            + "Booking Number : " + bookingNumber + "\n"
-                            + "Vehicle Number : " + vehicleNumber + "\n"
-                            + "Parking Area   : " + areaName + "\n"
-                            + "Slot Number    : " + slotNumber + "\n"
-                            + "Floor          : " + floorName + "\n\n"
+                            + String.format("%-20s : %s%n", "Booking Number", bookingNumber)
+                            + String.format("%-20s : %s%n", "Vehicle Number", vehicleNumber)
+                            + String.format("%-20s : %s%n", "Parking Area", areaName)
+                            + String.format("%-20s : %s%n", "Slot Number", slotNumber)
+                            + String.format("%-20s : %s%n", "Floor", floorName)
 
-                            + "The slot is now released and available for other users.\n\n"
+                            + "\n==================================================\n\n"
+
+                            + "The slot has been released and is now available for booking.\n\n"
 
                             + "Regards,\n"
                             + "Smart Parking Team"
@@ -184,5 +192,4 @@ public class EmailServiceImpl implements EmailService {
             );
         }
     }
-
 }

@@ -14,6 +14,7 @@ public class QrCodeController {
 
     @Autowired
     private QrCodeService qrCodeService;
+
     @Autowired
     private BookingService bookingService;
 
@@ -40,6 +41,5 @@ public class QrCodeController {
             @PathVariable Long bookingId) {
         return ResponseEntity.ok(bookingService.completeBooking(bookingId));
     }
-
 
 }

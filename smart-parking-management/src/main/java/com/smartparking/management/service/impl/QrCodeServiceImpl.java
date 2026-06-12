@@ -79,7 +79,6 @@ public class QrCodeServiceImpl implements QrCodeService {
         return BookingMapper.mapToBookingResponse(booking);
     }
 
-
     private User getLoggedInUser() {
 
         String email = SecurityContextHolder.getContext()
@@ -89,10 +88,4 @@ public class QrCodeServiceImpl implements QrCodeService {
         return userRepository.findByEmailAndDeletedFalse(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
-
-
-
-
-
-
 }

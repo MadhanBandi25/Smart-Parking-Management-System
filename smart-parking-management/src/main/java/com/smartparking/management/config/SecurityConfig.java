@@ -39,23 +39,14 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(
                 List.of("http://127.0.0.1:5500",
-                        "http://localhost:5500"
-                         )
+                        "http://localhost:5500")
         );
 
-        configuration.setAllowedMethods(
-                List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        );
-
-        configuration.setAllowedHeaders(
-                List.of("*")
-        );
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
 
         configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
@@ -91,7 +82,6 @@ public class SecurityConfig {
                                 HttpMethod.PUT,
                                 "/api/users/profile")
                         .hasRole("USER")
-
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/users",
@@ -113,22 +103,18 @@ public class SecurityConfig {
                                 HttpMethod.POST,
                                 "/api/vehicles"
                         ).hasRole("USER")
-
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/vehicles/my-vehicles"
                         ).hasRole("USER")
-
                         .requestMatchers(
                                 HttpMethod.DELETE,
                                 "/api/vehicles/*"
                         ).hasRole("USER")
-
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/api/vehicles/*/restore"
                         ).hasRole("USER")
-
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/vehicles",
@@ -136,7 +122,6 @@ public class SecurityConfig {
                                 "/api/vehicles/type",
                                 "/api/vehicles/*"
                         ).hasRole("ADMIN")
-
                         // Parking area
                         .requestMatchers(
                                 HttpMethod.POST,
@@ -181,8 +166,6 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/api/parking-slots"
                         ).hasAnyRole("ADMIN", "PARKING_OWNER")
-
-// ADD THIS NEW BLOCK ↓
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/parking-slots/available",
@@ -190,8 +173,6 @@ public class SecurityConfig {
                                 "/api/parking-slots/area/**",
                                 "/api/parking-slots/search/**"
                         ).hasAnyRole("ADMIN", "PARKING_OWNER", "USER", "SECURITY")
-// ADD THIS NEW BLOCK ↑
-
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/parking-slots/**"
@@ -234,7 +215,6 @@ public class SecurityConfig {
                                 HttpMethod.PUT,
                                 "/api/bookings/*/complete"
                         ).hasRole("SECURITY")
-
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/bookings",
@@ -289,7 +269,6 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/api/qr/booking/**"
                         ).hasRole("USER")
-                        // THIS JOB ONLY FOR SECURITY DO BUT NOW I ACCESS IT USER ALSO
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/qr/verify"
@@ -319,8 +298,6 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/api/analytics"
                         ).hasRole("ADMIN")
-
-
                         .anyRequest().authenticated())
                   .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                .httpBasic(Customizer.withDefaults());

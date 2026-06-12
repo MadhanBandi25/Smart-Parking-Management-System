@@ -58,5 +58,4 @@ public class VehicleMapper {
         }
         return sb.toString().trim();
     }
-
 }

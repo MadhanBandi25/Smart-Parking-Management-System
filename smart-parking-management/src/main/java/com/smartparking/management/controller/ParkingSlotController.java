@@ -2,7 +2,6 @@ package com.smartparking.management.controller;
 
 import com.smartparking.management.dto.request.ParkingSlotGenerateRequest;
 import com.smartparking.management.dto.response.ParkingSlotResponse;
-import com.smartparking.management.entity.ParkingSlot;
 import com.smartparking.management.enums.SlotStatus;
 import com.smartparking.management.enums.VehicleType;
 import com.smartparking.management.service.ParkingSlotService;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/parking-slots")
@@ -91,7 +89,4 @@ public class ParkingSlotController {
         ParkingSlotResponse response = parkingSlotService.updateSlotStatus(id, status);
         return ResponseEntity.ok(response);
     }
-
-
-
 }

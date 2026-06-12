@@ -26,7 +26,6 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-
     @PostMapping("/verify")
     public ResponseEntity<UserResponse> verifyOtp(@Valid @RequestBody VerifyOtpRequest request) {
         UserResponse response = authService.verifyOtp(request);
@@ -50,6 +49,4 @@ public class AuthController {
         String response = authService.resetPassword(request);
         return ResponseEntity.ok(response);
     }
-
-
 }

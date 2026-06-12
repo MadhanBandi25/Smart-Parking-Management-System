@@ -24,12 +24,10 @@ public class RegisterRequest {
             message = "Phone number must be a valid 10-digit Indian mobile number")
     private String phoneNumber;
 
-
     @NotBlank(message = "Password is required")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,20}$",
             message = "Password must contain 1 uppercase, 1 lowercase, 1 number, 1 special character and be 8-20 characters long")
     private String password;
 
     private Role role;
-
 }

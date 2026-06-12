@@ -56,5 +56,4 @@ public class User {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<ParkingArea> parkingAreas;
-
 }

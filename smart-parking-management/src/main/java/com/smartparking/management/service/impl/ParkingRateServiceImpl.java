@@ -25,8 +25,10 @@ public class ParkingRateServiceImpl implements ParkingRateService {
 
     @Autowired
     private ParkingRateRepository parkingRateRepository;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private ParkingAreaRepository parkingAreaRepository;
 
@@ -35,7 +37,6 @@ public class ParkingRateServiceImpl implements ParkingRateService {
         ParkingArea parkingArea = getActiveParkingArea(request.getParkingAreaId());
         validateParkingAreaOwner(parkingArea);
 
-        // Check if a deleted record exists for same area + vehicle type
         Optional<ParkingRate> deletedRate = parkingRateRepository
                 .findByParkingAreaIdAndVehicleType(
                         parkingArea.getId(), request.getVehicleType());
@@ -47,7 +48,6 @@ public class ParkingRateServiceImpl implements ParkingRateService {
                 throw new BadRequestException("Parking rate already exists for this vehicle type");
             }
 
-            // Restore and update the deleted record
             rate.setDeleted(false);
             rate.setWeekdayRate(request.getWeekdayRate());
             rate.setWeekendRate(request.getWeekendRate());
@@ -156,8 +156,6 @@ public class ParkingRateServiceImpl implements ParkingRateService {
             throw new BadRequestException("Parking rate already exists for this vehicle type");
         }
     }
-
-
 
     private User getLoggedInUser() {
         String email = SecurityContextHolder

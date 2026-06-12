@@ -58,5 +58,4 @@ public class ParkingRate {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parking_area_id", nullable = false)
     private ParkingArea parkingArea;
-
 }

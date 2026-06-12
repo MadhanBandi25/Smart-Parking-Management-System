@@ -1,7 +1,6 @@
 package com.smartparking.management.service;
 
 import com.smartparking.management.dto.request.ParkingSlotGenerateRequest;
-import com.smartparking.management.dto.response.ParkingAreaResponse;
 import com.smartparking.management.dto.response.ParkingSlotResponse;
 import com.smartparking.management.enums.SlotStatus;
 import com.smartparking.management.enums.VehicleType;
@@ -29,7 +28,4 @@ public interface ParkingSlotService {
     ParkingSlotResponse restoreParkingSlot(Long id);
 
     ParkingSlotResponse updateSlotStatus(Long id, String status);
-
-
-
 }

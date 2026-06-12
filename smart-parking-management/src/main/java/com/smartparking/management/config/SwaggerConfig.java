@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-
     @Bean
     public OpenAPI smartParkingOpenAPI() {
         return new OpenAPI()
@@ -17,5 +16,4 @@ public class SwaggerConfig {
                         .description("Backend APIs for Smart Parking Management System")
                         .version("1.0"));
     }
-
 }

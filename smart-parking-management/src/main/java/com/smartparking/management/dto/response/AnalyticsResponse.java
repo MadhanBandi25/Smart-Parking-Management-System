@@ -19,6 +19,4 @@ public class AnalyticsResponse {
     private Map<String, Long> vehicleTypeBookings;
     private Map<String, Long> bookingStatusCount;
     private Map<String, BigDecimal> areaWiseRevenue;
-
-
 }

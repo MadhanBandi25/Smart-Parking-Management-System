@@ -19,7 +19,6 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
-
     @PostMapping
     public ResponseEntity<VehicleResponse> addVehicle(@Valid @RequestBody VehicleRequest request) {
         VehicleResponse response = vehicleService.addVehicle(request);
@@ -67,5 +66,4 @@ public class VehicleController {
         VehicleResponse response = vehicleService.restoreVehicle(id);
         return ResponseEntity.ok(response);
     }
-
 }

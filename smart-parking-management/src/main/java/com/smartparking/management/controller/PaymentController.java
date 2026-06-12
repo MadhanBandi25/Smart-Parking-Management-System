@@ -100,5 +100,4 @@ public class PaymentController {
         PaymentResponse response = paymentService.makeExtraPayment(bookingId, paymentMethod);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
 }

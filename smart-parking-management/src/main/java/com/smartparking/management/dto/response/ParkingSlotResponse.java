@@ -23,5 +23,4 @@ public class ParkingSlotResponse {
     private String city;
 
     private LocalDateTime createdAt;
-
 }

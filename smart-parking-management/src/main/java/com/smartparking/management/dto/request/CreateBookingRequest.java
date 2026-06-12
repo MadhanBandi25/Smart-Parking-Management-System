@@ -19,5 +19,4 @@ public class CreateBookingRequest {
     @NotNull(message = "Booked hours is required")
     @Min(value = 1, message = "Minimum booking duration is 1 hour")
     private Integer bookedHours;
-
 }

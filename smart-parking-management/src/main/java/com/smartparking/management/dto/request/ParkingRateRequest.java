@@ -25,5 +25,4 @@ public class ParkingRateRequest {
     @DecimalMin(value = "0.0", inclusive = false,
             message = "Weekend rate must be greater than zero")
     private BigDecimal weekendRate;
-
 }

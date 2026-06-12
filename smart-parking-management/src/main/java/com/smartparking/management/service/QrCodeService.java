@@ -7,5 +7,4 @@ public interface QrCodeService {
 
     QrCodeResponse generateQrCode(String bookingNumber);
     BookingResponse verifyQrCode(String bookingNumber);
-
 }

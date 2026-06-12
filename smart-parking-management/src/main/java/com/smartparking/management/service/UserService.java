@@ -1,6 +1,5 @@
 package com.smartparking.management.service;
 
-import com.smartparking.management.dto.request.RegisterRequest;
 import com.smartparking.management.dto.request.UpdateProfileRequest;
 import com.smartparking.management.dto.response.UserResponse;
 

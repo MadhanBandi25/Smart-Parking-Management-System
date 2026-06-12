@@ -24,5 +24,4 @@ public class PaymentResponse {
     private String areaName;
 
     private String qrCodeBase64;
-
 }

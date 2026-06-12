@@ -20,5 +20,4 @@ public class VehicleResponse {
     private String ownerName;
     private String ownerPhoneNumber;
     private LocalDateTime createdAt;
-
 }

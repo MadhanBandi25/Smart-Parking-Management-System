@@ -22,9 +22,9 @@ public class ReportServiceImpl implements ReportService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
     @Autowired
     private PaymentRepository paymentRepository;
-
 
     @Override
     public RevenueReportResponse getRevenueReport(LocalDate fromDate, LocalDate toDate) {
@@ -62,15 +62,6 @@ public class ReportServiceImpl implements ReportService {
                 .map(this::mapToPaymentReport)
                 .toList();
     }
-
-
-
-
-
-
-
-
-
 
     private BookingReportResponse mapToBookingReport(Booking booking) {
 

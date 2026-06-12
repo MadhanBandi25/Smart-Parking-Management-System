@@ -23,5 +23,4 @@ public class ParkingSlotGenerateRequest {
 
     @NotNull(message = "Truck floor is required")
     private Integer truckFloor;
-
 }

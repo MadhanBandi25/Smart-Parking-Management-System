@@ -12,5 +12,4 @@ public interface ReportService {
     RevenueReportResponse getRevenueReport(LocalDate fromDate, LocalDate toDate);
     List<BookingReportResponse> getBookingReport(LocalDate fromDate, LocalDate toDate);
     List<PaymentReportResponse> getPaymentReport(LocalDate fromDate, LocalDate toDate);
-
 }

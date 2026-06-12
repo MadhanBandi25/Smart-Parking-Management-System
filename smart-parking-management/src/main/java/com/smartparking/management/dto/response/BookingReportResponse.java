@@ -17,5 +17,4 @@ public class BookingReportResponse {
     private String slotNumber;
     private BookingStatus bookingStatus;
     private LocalDateTime bookingTime;
-
 }

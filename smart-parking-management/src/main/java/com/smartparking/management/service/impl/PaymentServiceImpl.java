@@ -37,15 +37,19 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
     @Autowired
     private BookingRepository bookingRepository;
+
     @Autowired
     private ParkingSlotRepository parkingSlotRepository;
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private EmailService emailService;
+
     @Autowired
     private NotificationService notificationService;
 
@@ -123,11 +127,9 @@ public class PaymentServiceImpl implements PaymentService {
                 NotificationType.BOOKING_CONFIRMED
         );
 
-
         PaymentResponse response = PaymentMapper.mapToPaymentResponse(saved);
         response.setQrCodeBase64(QrCodeUtil.generateQrCodeBase64(booking.getBookingNumber()));
         return response;
-
     }
 
     @Override
@@ -292,12 +294,9 @@ public class PaymentServiceImpl implements PaymentService {
                         ". Total paid: ₹" + booking.getTotalAmount(),
                 NotificationType.PAYMENT_SUCCESS
         );
-
         return PaymentMapper.mapToPaymentResponse(saved);
     }
     // Helper methods
-
-
     private User getLoggedInUser() {
         String email = SecurityContextHolder.getContext()
                 .getAuthentication()
@@ -306,7 +305,7 @@ public class PaymentServiceImpl implements PaymentService {
         return userRepository.findByEmailAndDeletedFalse(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
-//
+
     private String generatePaymentNumber(String method) {
 
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
@@ -322,9 +321,6 @@ public class PaymentServiceImpl implements PaymentService {
 
         return "PAY" + method.charAt(0) + date + time + milliSeconds + random;
     }
-
-
-
 
     private String generateTransactionId() {
         String transactionId;

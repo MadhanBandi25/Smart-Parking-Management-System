@@ -1,6 +1,5 @@
 package com.smartparking.management.controller;
 
-
 import com.smartparking.management.dto.response.NotificationResponse;
 import com.smartparking.management.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ public class NotificationController {
 
     @Autowired
     private NotificationService notificationService;
-
 
     @GetMapping("/my")
     public ResponseEntity<List<NotificationResponse>> getMyNotifications() {
@@ -32,19 +30,6 @@ public class NotificationController {
             @PathVariable Long notificationId) {
         return ResponseEntity.ok(notificationService.markAsRead(notificationId));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

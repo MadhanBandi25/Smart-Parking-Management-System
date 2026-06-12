@@ -39,17 +39,13 @@ public class BookingMapper {
 
         response.setBookingStatus(booking.getBookingStatus());
 
-        // extraPaid = true if payment amount equals totalAmount (extra was paid)
-        boolean hasExtra = booking.getExtraAmount() != null &&
-                booking.getExtraAmount().compareTo(BigDecimal.ZERO) > 0;
+        boolean hasExtra = booking.getExtraAmount() != null && booking.getExtraAmount().compareTo(BigDecimal.ZERO) > 0;
         boolean extraPaid = false;
         if (hasExtra && booking.getPayment() != null) {
-            extraPaid = booking.getPayment().getAmount()
-                    .compareTo(booking.getTotalAmount()) >= 0;
+            extraPaid = booking.getPayment().getAmount().compareTo(booking.getTotalAmount()) >= 0;
         }
         response.setExtraPaid(extraPaid);
 
         return response;
     }
-
 }

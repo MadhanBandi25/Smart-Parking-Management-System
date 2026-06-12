@@ -1,6 +1,5 @@
 package com.smartparking.management.controller;
 
-
 import com.smartparking.management.dto.response.AnalyticsResponse;
 import com.smartparking.management.service.AnalyticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ public class AnalyticsController {
 
     @GetMapping
     public ResponseEntity<AnalyticsResponse> getAnalytics() {
-
         return ResponseEntity.ok(analyticsService.getAnalytics());
     }
 

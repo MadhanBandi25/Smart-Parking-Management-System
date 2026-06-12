@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Data
 public class BookingResponse {
 
-
     private Long id;
     private String bookingNumber;
 
@@ -37,5 +36,4 @@ public class BookingResponse {
     private BookingStatus bookingStatus;
     private Boolean extraPaid;
     private Long parkingAreaId;
-
 }

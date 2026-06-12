@@ -40,5 +40,4 @@ public class ParkingAreaRequest {
     @NotNull(message = "Truck slots is required")
     @Min(value = 0, message = "Truck slots cannot be negative")
     private Integer truckSlots;
-
 }

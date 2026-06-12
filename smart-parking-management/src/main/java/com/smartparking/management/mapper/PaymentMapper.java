@@ -10,10 +10,8 @@ public class PaymentMapper {
         PaymentResponse response = new PaymentResponse();
 
         response.setId(payment.getId());
-
         response.setPaymentNumber(payment.getPaymentNumber());
         response.setTransactionId(payment.getTransactionId());
-
         response.setBookingNumber(payment.getBooking().getBookingNumber());
 
         response.setAmount(payment.getAmount());

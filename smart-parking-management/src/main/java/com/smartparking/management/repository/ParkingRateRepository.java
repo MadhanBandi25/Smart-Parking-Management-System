@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public interface ParkingRateRepository extends JpaRepository<ParkingRate,Long> {
 
-
     boolean existsByParkingAreaIdAndVehicleTypeAndDeletedFalse(Long parkingAreaId, VehicleType vehicleType);
     Optional<ParkingRate> findByIdAndDeletedFalse(Long id);
     List<ParkingRate> findByParkingAreaIdAndDeletedFalse(Long parkingAreaId);

@@ -28,9 +28,4 @@ public interface BookingService {
     BookingResponse completeBooking(Long bookingId);
     BookingResponse cancelBooking(Long bookingId);
 
-/*
-    BookingResponse startBookingByQr(String qrCode);
-    BookingResponse completeBookingByQr(String qrCode);
-
- */
 }

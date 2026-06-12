@@ -1,6 +1,5 @@
 package com.smartparking.management.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartparking.management.enums.VehicleType;
 import jakarta.persistence.*;

@@ -2,7 +2,6 @@ package com.smartparking.management.controller;
 
 import com.smartparking.management.dto.request.ParkingRateRequest;
 import com.smartparking.management.dto.response.ParkingRateResponse;
-import com.smartparking.management.repository.UserRepository;
 import com.smartparking.management.service.ParkingRateService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/parking-rates")
 public class ParkingRateController {
-
-
 
     @Autowired
     private ParkingRateService parkingRateService;

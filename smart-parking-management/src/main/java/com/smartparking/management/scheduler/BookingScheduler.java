@@ -22,21 +22,19 @@ public class BookingScheduler {
 
     @Autowired
     private BookingRepository bookingRepository;
+
     @Autowired
     private ParkingSlotRepository parkingSlotRepository;
 
     @Autowired
     private NotificationService notificationService;
 
-
     @Scheduled(fixedRate = 10000)
     @Transactional
     public void cancelExpiredBookings() {
 
         List<Booking> expiredBookings = bookingRepository
-                        .findByBookingStatusAndPaymentExpiryTimeBefore(
-                                BookingStatus.PENDING_PAYMENT,
-                                LocalDateTime.now());
+                        .findByBookingStatusAndPaymentExpiryTimeBefore(BookingStatus.PENDING_PAYMENT, LocalDateTime.now());
 
         for (Booking booking : expiredBookings) {
             booking.setBookingStatus(BookingStatus.CANCELLED);
@@ -53,9 +51,7 @@ public class BookingScheduler {
             notificationService.createNotification(
                     booking.getUser(),
                     "Your booking was auto-cancelled because payment was not completed within 3 minutes.",
-                    NotificationType.BOOKING_AUTO_CANCELLED
-            );
-
+                    NotificationType.BOOKING_AUTO_CANCELLED);
         }
     }
 
@@ -64,9 +60,7 @@ public class BookingScheduler {
     public void expireUnusedBookings() {
 
         List<Booking> expiredBookings = bookingRepository
-                .findByBookingStatusAndExpectedExitTimeBefore(
-                        BookingStatus.BOOKED,
-                        LocalDateTime.now());
+                .findByBookingStatusAndExpectedExitTimeBefore(BookingStatus.BOOKED, LocalDateTime.now());
 
         for (Booking booking : expiredBookings) {
             booking.setBookingStatus(BookingStatus.EXPIRED);
@@ -82,9 +76,7 @@ public class BookingScheduler {
                     "Your booking " + booking.getBookingNumber()
                             + " has expired as you did not check in before "
                             + booking.getExpectedExitTime(),
-                    NotificationType.BOOKING_AUTO_CANCELLED
-            );
+                    NotificationType.BOOKING_AUTO_CANCELLED);
         }
     }
-
 }

@@ -25,5 +25,4 @@ public interface PaymentService {
     List<PaymentResponse> getPaymentsByDateRange(LocalDate fromDate, LocalDate toDate);
 
     PaymentResponse makeExtraPayment(Long bookingId, PaymentMethod paymentMethod);
-
 }

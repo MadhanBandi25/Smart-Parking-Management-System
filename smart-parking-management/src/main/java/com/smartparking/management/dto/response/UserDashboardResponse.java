@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 @Data
 public class UserDashboardResponse {
 
-
     private Long totalVehicles;
 
     private Long totalBookings;
@@ -15,7 +14,4 @@ public class UserDashboardResponse {
 
     private Long completedBookings;
     private BigDecimal totalAmountPaid;
-
-
-
 }

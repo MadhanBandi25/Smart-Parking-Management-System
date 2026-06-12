@@ -1,6 +1,5 @@
 package com.smartparking.management.service.impl;
 
-import com.smartparking.management.config.JwtFilter;
 import com.smartparking.management.config.JwtUtil;
 import com.smartparking.management.dto.request.*;
 import com.smartparking.management.dto.response.AuthResponse;
@@ -13,7 +12,6 @@ import com.smartparking.management.mapper.UserMapper;
 import com.smartparking.management.repository.UserRepository;
 import com.smartparking.management.service.AuthService;
 import com.smartparking.management.service.EmailService;
-import com.smartparking.management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,8 +53,7 @@ public class AuthServiceImpl implements AuthService {
         User user = UserMapper.mapToEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         String otp = generateOtp();
-        pendingUsers.put(request.getEmail(),
-                new PendingUserData(user, otp, LocalDateTime.now().plusMinutes(5)));
+        pendingUsers.put(request.getEmail(), new PendingUserData(user, otp, LocalDateTime.now().plusMinutes(5)));
 
         emailService.sendRegistrationOtp(request.getEmail(), otp);
         return UserMapper.mapToResponse(user);
@@ -92,9 +89,7 @@ public class AuthServiceImpl implements AuthService {
             throw new UnauthorizedException("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(
-                user.getEmail(), user.getRole().name());
-
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
 
         return new AuthResponse(token,
                 "Bearer",

@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-
 public interface BookingRepository extends JpaRepository<Booking,Long> {
-
 
     Optional<Booking> findByBookingNumber(String bookingNumber);
     List<Booking> findByUserId(Long userId);
@@ -35,11 +33,6 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
 
     long countByParkingAreaOwnerId(Long ownerId);
     long countByParkingAreaOwnerIdAndBookingStatus(Long ownerId, BookingStatus bookingStatus);
-    List<Booking> findByParkingAreaOwnerId(Long ownerId);
 
-
-    List<Booking> findByBookingStatusAndExpectedExitTimeBefore(
-            BookingStatus bookingStatus,
-            LocalDateTime dateTime
-    );
+    List<Booking> findByBookingStatusAndExpectedExitTimeBefore(BookingStatus bookingStatus, LocalDateTime dateTime);
 }

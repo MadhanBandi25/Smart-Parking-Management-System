@@ -47,7 +47,6 @@ public class ParkingSlot {
     @Column(nullable = false, length = 20)
     private SlotStatus slotStatus = SlotStatus.AVAILABLE;
 
-
     @Column(nullable = false)
     private Boolean deleted = false;
 

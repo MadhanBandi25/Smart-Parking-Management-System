@@ -19,5 +19,4 @@ public interface VehicleService {
 
     void deleteVehicle(Long id);
     VehicleResponse restoreVehicle(Long id);
-
 }

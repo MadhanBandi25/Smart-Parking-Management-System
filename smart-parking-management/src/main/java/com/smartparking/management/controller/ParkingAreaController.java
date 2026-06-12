@@ -90,9 +90,4 @@ public class ParkingAreaController {
     public ResponseEntity<List<ParkingAreaResponse>> getAllIncludingDeleted() {
         return ResponseEntity.ok(parkingAreaService.getAllIncludingDeletedForCurrentUser());
     }
-
-
-
-
-
 }

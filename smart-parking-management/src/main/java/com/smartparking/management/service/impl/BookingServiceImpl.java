@@ -26,20 +26,24 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-
 @Service
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private VehicleRepository vehicleRepository;
+
     @Autowired
     private ParkingAreaRepository parkingAreaRepository;
+
     @Autowired
     private ParkingSlotRepository parkingSlotRepository;
+
     @Autowired
     private ParkingRateRepository parkingRateRepository;
 
@@ -48,7 +52,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private NotificationService notificationService;
-
 
     @Override
     @Transactional
@@ -293,7 +296,6 @@ public class BookingServiceImpl implements BookingService {
                         + booking.getTotalAmount(),
                 NotificationType.CHECK_OUT);
 
-
         return BookingMapper.mapToBookingResponse(saved);
     }
 
@@ -337,11 +339,8 @@ public class BookingServiceImpl implements BookingService {
                     FloorUtil.getFloorName(booking.getParkingSlot().getFloorNumber())
             );
         }
-
         return BookingMapper.mapToBookingResponse(saved);
     }
-
-
 // Helper methods
     private Booking getBooking(Long bookingId) {
         return bookingRepository.findById(bookingId)
@@ -408,5 +407,4 @@ public class BookingServiceImpl implements BookingService {
         }
         return totalExtraAmount.setScale(2, RoundingMode.HALF_UP);
     }
-
 }

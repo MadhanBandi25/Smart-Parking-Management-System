@@ -21,5 +21,4 @@ public class QrCodeResponse {
 
     private String areaName;
     private BookingStatus bookingStatus;
-
 }

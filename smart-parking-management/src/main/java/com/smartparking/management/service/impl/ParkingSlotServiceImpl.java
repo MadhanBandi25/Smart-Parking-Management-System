@@ -26,8 +26,10 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
 
     @Autowired
     private ParkingSlotRepository parkingSlotRepository;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private ParkingAreaRepository parkingAreaRepository;
 
@@ -81,7 +83,6 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
                 VehicleType.TRUCK,
                 request.getTruckFloor()
         );
-
     }
 
     @Override
@@ -193,7 +194,6 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         return ParkingSlotMapper.mapToParkingSlotResponse(saved);
     }
 
-
     private ParkingSlot getActiveParkingSlot(Long id) {
         return parkingSlotRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -270,11 +270,6 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
                     ". Valid values: AVAILABLE, RESERVED, OCCUPIED, MAINTENANCE");
         }
     }
-
-
-
-
-
 }
 
 
