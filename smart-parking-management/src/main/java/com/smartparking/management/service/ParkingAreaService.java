@@ -22,4 +22,7 @@ public interface ParkingAreaService {
 
     void deleteVehicleTypeFromArea(Long parkingAreaId, VehicleType vehicleType);
     void restoreVehicleTypeFromArea(Long parkingAreaId, VehicleType vehicleType);
+
+    List<ParkingAreaResponse> getMyParkingAreas();
+    List<ParkingAreaResponse> getAllIncludingDeletedForCurrentUser();
 }

@@ -50,6 +50,7 @@ public class ParkingAreaMapper {
         response.setTotalSlots(parkingArea.getTotalSlots());
         response.setAvailableSlots(parkingArea.getAvailableSlots());
         response.setCreatedAt(parkingArea.getCreatedAt());
+        response.setDeleted(parkingArea.getDeleted());
 
         return response;
     }

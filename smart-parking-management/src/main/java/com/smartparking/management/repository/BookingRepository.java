@@ -38,4 +38,8 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
     List<Booking> findByParkingAreaOwnerId(Long ownerId);
 
 
+    List<Booking> findByBookingStatusAndExpectedExitTimeBefore(
+            BookingStatus bookingStatus,
+            LocalDateTime dateTime
+    );
 }

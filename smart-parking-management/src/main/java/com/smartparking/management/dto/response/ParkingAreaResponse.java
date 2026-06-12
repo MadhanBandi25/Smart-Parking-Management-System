@@ -22,4 +22,5 @@ public class ParkingAreaResponse {
     private Integer availableSlots;
 
     private LocalDateTime createdAt;
+    private Boolean deleted;
 }

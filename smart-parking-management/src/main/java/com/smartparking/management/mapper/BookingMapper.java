@@ -35,6 +35,7 @@ public class BookingMapper {
         response.setBookingTime(booking.getBookingTime());
         response.setExpectedExitTime(booking.getExpectedExitTime());
         response.setActualExitTime(booking.getActualExitTime());
+        response.setParkingAreaId(booking.getParkingArea().getId());
 
         response.setBookingStatus(booking.getBookingStatus());
 

@@ -29,7 +29,7 @@ public class BookingScheduler {
     private NotificationService notificationService;
 
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 10000)
     @Transactional
     public void cancelExpiredBookings() {
 
@@ -59,16 +59,32 @@ public class BookingScheduler {
         }
     }
 
+    @Scheduled(fixedRate = 30000)
+    @Transactional
+    public void expireUnusedBookings() {
 
+        List<Booking> expiredBookings = bookingRepository
+                .findByBookingStatusAndExpectedExitTimeBefore(
+                        BookingStatus.BOOKED,
+                        LocalDateTime.now());
 
+        for (Booking booking : expiredBookings) {
+            booking.setBookingStatus(BookingStatus.EXPIRED);
 
+            ParkingSlot slot = booking.getParkingSlot();
+            slot.setSlotStatus(SlotStatus.AVAILABLE);
 
+            parkingSlotRepository.save(slot);
+            bookingRepository.save(booking);
 
-
-
-
-
-
-
+            notificationService.createNotification(
+                    booking.getUser(),
+                    "Your booking " + booking.getBookingNumber()
+                            + " has expired as you did not check in before "
+                            + booking.getExpectedExitTime(),
+                    NotificationType.BOOKING_AUTO_CANCELLED
+            );
+        }
+    }
 
 }

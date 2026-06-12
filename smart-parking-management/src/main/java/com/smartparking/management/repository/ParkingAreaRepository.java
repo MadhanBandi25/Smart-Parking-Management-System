@@ -20,4 +20,5 @@ public interface ParkingAreaRepository extends JpaRepository<ParkingArea, Long> 
     List<ParkingArea> findByOwnerIdAndDeletedFalse(Long ownerId);
     Optional<ParkingArea> findByIdAndOwnerIdAndDeletedFalse(Long id, Long ownerId);
     long countByOwnerIdAndDeletedFalse(Long ownerId);
+    List<ParkingArea> findByOwnerId(Long ownerId);
 }

@@ -81,8 +81,15 @@ public class ParkingAreaController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/my")
+    public ResponseEntity<List<ParkingAreaResponse>> getMyParkingAreas() {
+        return ResponseEntity.ok(parkingAreaService.getMyParkingAreas());
+    }
 
-
+    @GetMapping("/all")
+    public ResponseEntity<List<ParkingAreaResponse>> getAllIncludingDeleted() {
+        return ResponseEntity.ok(parkingAreaService.getAllIncludingDeletedForCurrentUser());
+    }
 
 
 

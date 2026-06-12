@@ -144,6 +144,14 @@ public class SecurityConfig {
                         ).hasAnyRole("ADMIN", "PARKING_OWNER")
                         .requestMatchers(
                                 HttpMethod.GET,
+                                "/api/parking-areas/my"
+                        ).hasRole("PARKING_OWNER")
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/parking-areas/all"
+                        ).hasAnyRole("ADMIN", "PARKING_OWNER", "USER")
+                        .requestMatchers(
+                                HttpMethod.GET,
                                 "/api/parking-areas"
                         ).hasAnyRole("ADMIN", "PARKING_OWNER", "USER")
                         .requestMatchers(
@@ -196,6 +204,10 @@ public class SecurityConfig {
                                 HttpMethod.PUT,
                                 "/api/parking-slots/**"
                         ).hasAnyRole("ADMIN", "PARKING_OWNER")
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/api/parking-slots/*/status")
+                        .hasAnyRole("ADMIN", "PARKING_OWNER")
                         // Bookings
                         .requestMatchers(
                                 HttpMethod.POST,
@@ -214,7 +226,6 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/api/bookings/search"
                         ).hasAnyRole("ADMIN", "SECURITY")
-                        // these two now as user to allow in feature add security members
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/api/bookings/*/start"
@@ -230,11 +241,11 @@ public class SecurityConfig {
                                 "/api/bookings/status",
                                 "/api/bookings/type",
                                 "/api/bookings/date-range"
-                        ).hasRole("ADMIN")
+                        ).hasAnyRole("ADMIN", "SECURITY", "PARKING_OWNER")
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/bookings/*"
-                        ).hasAnyRole("ADMIN", "SECURITY")
+                        ).hasAnyRole("ADMIN", "SECURITY", "PARKING_OWNER")
                         // payments
                         .requestMatchers(
                                 HttpMethod.POST,

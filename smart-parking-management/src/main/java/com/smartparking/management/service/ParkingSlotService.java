@@ -28,11 +28,7 @@ public interface ParkingSlotService {
     void deleteParkingSlot(Long id);
     ParkingSlotResponse restoreParkingSlot(Long id);
 
-  /*
-    void deleteParkingArea(Long parkingAreaId);
-    ParkingAreaResponse restoreParkingArea(Long parkingAreaId);
-
-   */
+    ParkingSlotResponse updateSlotStatus(Long id, String status);
 
 
 

@@ -255,58 +255,25 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         }
     }
 
-
-
-
-/*
-
-
- @Autowired
-    private ParkingRateRepository parkingRateRepository;
-
-
     @Override
-    public void deleteParkingArea(Long parkingAreaId) {
-        ParkingArea parkingArea = getActiveParkingArea(parkingAreaId);
-        if (parkingArea.getDeleted()) {
-            throw new BadRequestException("Parking area is already active");
+    public ParkingSlotResponse updateSlotStatus(Long id, String status) {
+        ParkingSlot parkingSlot = getActiveParkingSlot(id);
+        validateParkingAreaOwner(parkingSlot.getParkingArea());
+
+        try {
+            SlotStatus newStatus = SlotStatus.valueOf(status.toUpperCase());
+            parkingSlot.setSlotStatus(newStatus);
+            ParkingSlot saved = parkingSlotRepository.save(parkingSlot);
+            return ParkingSlotMapper.mapToParkingSlotResponse(saved);
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Invalid slot status: " + status +
+                    ". Valid values: AVAILABLE, RESERVED, OCCUPIED, MAINTENANCE");
         }
-        parkingArea.setDeleted(true);
-        parkingSlotRepository.findByParkingAreaIdAndDeletedFalse(parkingAreaId)
-                .forEach(slot -> {slot.setDeleted(true);
-                    parkingSlotRepository.save(slot);});
-
-        parkingRateRepository.findByParkingAreaIdAndDeletedFalse(parkingAreaId)
-                .forEach(rate -> {rate.setDeleted(true);
-                    parkingRateRepository.save(rate);});
-        parkingAreaRepository.save(parkingArea);
-    }
-
-    @Override
-    public ParkingAreaResponse restoreParkingArea(Long parkingAreaId) {
-        ParkingArea parkingArea = getParkingArea(parkingAreaId);
-        if (!parkingArea.getDeleted()) {
-            throw new BadRequestException("Parking area is already active");
-        }
-        parkingArea.setDeleted(false);
-        parkingSlotRepository.findByParkingAreaId(parkingAreaId)
-                .forEach(slot -> {slot.setDeleted(false);
-                    parkingSlotRepository.save(slot);});
-        parkingRateRepository.findByParkingAreaId(parkingAreaId)
-                .forEach(rate -> {rate.setDeleted(false);
-                    parkingRateRepository.save(rate);});
-        ParkingArea saved = parkingAreaRepository.save(parkingArea);
-        return ParkingAreaMapper.mapToParkingAreaResponse(saved);
     }
 
 
-    private ParkingArea getParkingArea(Long id) {
-        return parkingAreaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Parking area not found with id : " + id));
-    }
 
- */
+
 
 }
 

@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ParkingRateServiceImpl implements ParkingRateService {
@@ -34,9 +35,24 @@ public class ParkingRateServiceImpl implements ParkingRateService {
         ParkingArea parkingArea = getActiveParkingArea(request.getParkingAreaId());
         validateParkingAreaOwner(parkingArea);
 
-        if (parkingRateRepository.existsByParkingAreaIdAndVehicleTypeAndDeletedFalse(
-                parkingArea.getId(), request.getVehicleType())) {
-            throw new BadRequestException("Parking rate already exists for this vehicle type");
+        // Check if a deleted record exists for same area + vehicle type
+        Optional<ParkingRate> deletedRate = parkingRateRepository
+                .findByParkingAreaIdAndVehicleType(
+                        parkingArea.getId(), request.getVehicleType());
+
+        if (deletedRate.isPresent()) {
+            ParkingRate rate = deletedRate.get();
+
+            if (!rate.getDeleted()) {
+                throw new BadRequestException("Parking rate already exists for this vehicle type");
+            }
+
+            // Restore and update the deleted record
+            rate.setDeleted(false);
+            rate.setWeekdayRate(request.getWeekdayRate());
+            rate.setWeekendRate(request.getWeekendRate());
+            ParkingRate saved = parkingRateRepository.save(rate);
+            return ParkingRateMapper.mapToParkingRateResponse(saved);
         }
 
         ParkingRate rate = ParkingRateMapper.mapToParkingRateEntity(request, parkingArea);

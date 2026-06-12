@@ -2,6 +2,7 @@ package com.smartparking.management.controller;
 
 import com.smartparking.management.dto.request.ParkingSlotGenerateRequest;
 import com.smartparking.management.dto.response.ParkingSlotResponse;
+import com.smartparking.management.entity.ParkingSlot;
 import com.smartparking.management.enums.SlotStatus;
 import com.smartparking.management.enums.VehicleType;
 import com.smartparking.management.service.ParkingSlotService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/parking-slots")
@@ -82,18 +84,14 @@ public class ParkingSlotController {
         return ResponseEntity.ok(response);
     }
 
- /*   @DeleteMapping("/area/{parkingSlotId}")
-    public ResponseEntity<Void> deleteParkingAreaSlot(@PathVariable Long parkingSlotId) {
-        parkingSlotService.deleteParkingSlot(parkingSlotId);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{id}/status")
+    public ResponseEntity<ParkingSlotResponse> updateSlotStatus(
+            @PathVariable Long id,
+            @RequestParam String status) {
+        ParkingSlotResponse response = parkingSlotService.updateSlotStatus(id, status);
+        return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/area/{parkingSlotId}/restore")
-    public ResponseEntity<ParkingSlotResponse> restoreParkingAreaSlot(
-            @PathVariable Long parkingSlotId) {
-        ParkingSlotResponse response = parkingSlotService.restoreParkingSlot(parkingSlotId);
-        return ResponseEntity.ok(response);
-    } */
 
 
 }

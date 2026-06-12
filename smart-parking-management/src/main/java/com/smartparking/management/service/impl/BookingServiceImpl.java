@@ -409,22 +409,4 @@ public class BookingServiceImpl implements BookingService {
         return totalExtraAmount.setScale(2, RoundingMode.HALF_UP);
     }
 
-  /*  private BigDecimal calculateExtraAmount(BigDecimal hourlyRate, long extraMinutes) {
-
-        if (extraMinutes <= 5) {
-            return BigDecimal.ZERO;
-        }
-
-        BigDecimal perMinuteRate = hourlyRate.divide(
-                BigDecimal.valueOf(60),
-                2,
-                RoundingMode.HALF_UP);
-
-        return perMinuteRate
-                .multiply(BigDecimal.valueOf(extraMinutes))
-                .setScale(2, RoundingMode.HALF_UP);
-    }
-
-   */
-
 }

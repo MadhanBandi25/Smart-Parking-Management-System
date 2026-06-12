@@ -190,6 +190,31 @@ public class ParkingAreaServiceImpl implements ParkingAreaService {
         }
     }
 
+    @Override
+    public List<ParkingAreaResponse> getMyParkingAreas() {
+        User owner = getLoggedInUser();
+        return parkingAreaRepository
+                .findByOwnerIdAndDeletedFalse(owner.getId())
+                .stream()
+                .map(ParkingAreaMapper::mapToParkingAreaResponse)
+                .toList();
+    }
+
+    @Override
+    public List<ParkingAreaResponse> getAllIncludingDeletedForCurrentUser() {
+        User user = getLoggedInUser();
+        if (user.getRole().equals(Role.ADMIN)) {
+            return parkingAreaRepository.findAll()
+                    .stream()
+                    .map(ParkingAreaMapper::mapToParkingAreaResponse)
+                    .toList();
+        }
+        return parkingAreaRepository.findByOwnerId(user.getId())
+                .stream()
+                .map(ParkingAreaMapper::mapToParkingAreaResponse)
+                .toList();
+    }
+
 
 
 

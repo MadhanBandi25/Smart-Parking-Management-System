@@ -36,5 +36,6 @@ public class BookingResponse {
 
     private BookingStatus bookingStatus;
     private Boolean extraPaid;
+    private Long parkingAreaId;
 
 }
